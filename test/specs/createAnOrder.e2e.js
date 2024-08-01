@@ -2,7 +2,7 @@ const page = require('../../page');
 const helper = require('../../helper');
 
 describe('Create an order', function () {
-    this.timeout(120000); // Set timeout to 2 minutes
+    this.timeout(120000); 
 
     it('should set the addresses', async () => {
         await browser.url(`/`);
@@ -19,9 +19,7 @@ describe('Create an order', function () {
         await page.clickSupportiveButton();
         const supportiveButton = await $(page.supportiveButton);
         const classList = await supportiveButton.getAttribute('class');
-        console.log(`Supportive button class list: ${classList}`);
-        // Ensure to check the correct class indicating selection
-        await expect(classList).toContain('tcard-title'); // Replace 'selected-class' with the actual class
+        await expect(classList).toContain('tcard-title'); 
     });
 
     it('should fill in the phone number', async () => {
@@ -108,7 +106,7 @@ describe('Create an order', function () {
         await expect(iceCreamCountText).toBe('2');
     });
 
-    it('should wait for the order modal to appear', async () => {
+    it('should wait for the car search modal to appear', async () => {
         await browser.url(`/`);
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.clickSupportiveButton();
@@ -130,7 +128,7 @@ describe('Create an order', function () {
         await expect(orderModal).toBeDisplayed();
     });
 
-    it('should verify the driver info in the order modal', async () => {
+    it('should verify the driver info in the car search modal', async () => {
         await browser.url(`/`);
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.clickSupportiveButton();
