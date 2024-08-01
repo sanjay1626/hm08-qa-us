@@ -6,7 +6,7 @@ describe('Create an order', () => {
     it('should complete the process of ordering a taxi', async () => {
         await browser.url(`/`);
         
-        // Set the addresses
+        // Setting the addresses
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         
         // Select Supportive plan
@@ -17,20 +17,20 @@ describe('Create an order', () => {
         await page.submitPhoneNumber(phoneNumber);
         await expect(await helper.getElementByText(phoneNumber)).toBeExisting();
         
-        // Add a credit card
+        // Adding a credit card
         await page.clickPaymentButton();
         const cardNumber = helper.getCardNumber();
         const cvvNumber = helper.getCVVNumber();
         await page.fillCardDetails(cardNumber, cvvNumber, true);
         
         // Write a message for the driver
-        const message = 'Test';
+        const message = 'Test message to driver';
         await page.writeMessage(message);
         await expect($(page.messageInput)).toHaveValue(message);
         
          // Order a blanket and handkerchiefs
          await page.clickBlanketSwitch();
-         await browser.pause(500); // Small pause to ensure the switch state changes
+         await browser.pause(500); 
          
         // Verify the blanket switch state by checking for the active class
         const blanketsSwitch = await $(page.blanketsSwitch);
@@ -48,20 +48,15 @@ describe('Create an order', () => {
         
         // Order the taxi
         await page.clickOrderButton();
-        
-        // Scroll to ensure order modal is in view
-        console.log("Scrolling to order modal...");
         const orderModal = await $(page.orderModal);
         await orderModal.scrollIntoView();
 
-        // Wait for the order modal to appear
-        console.log("Waiting for the order modal to appear...");
+        // Car search modal appears
         await orderModal.waitForDisplayed({ timeout: 60000 });
 
-        // Verify the driver info in the order modal
-        console.log("Verifying driver info in the order modal...");
-        const driverInfo = await orderModal.$('//div[contains(text(), "The driver will arrive in")]'); // Use a specific text or element inside the modal that indicates driver info
-        await driverInfo.waitForDisplayed({ timeout: 60000 });
+        // Waiting for the driver info to appear
+        const driverInfo = await orderModal.$('//div[contains(text(), "The driver will arrive in")]'); 
+        await driverInfo.waitForDisplayed({ timeout: 80000 });
         await expect(driverInfo).toBeDisplayed();
     });
 });

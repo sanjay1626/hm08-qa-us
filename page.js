@@ -33,7 +33,6 @@ module.exports = {
     paymentModal: '.payment-picker .modal .section',
     orderModal: '.order-body',
    
-
     // Functions
     fillAddresses: async function (from, to) {
         const fromField = await $(this.fromField);
@@ -56,16 +55,11 @@ module.exports = {
     },
     submitPhoneNumber: async function (phoneNumber) {
         await this.fillPhoneNumber(phoneNumber);
-        // we are starting interception of request from the moment of method call
         await browser.setupInterceptor();
         await $(this.nextButton).click();
-        // we should wait for response
-        // eslint-disable-next-line wdio/no-pause
         await browser.pause(2000);
         const codeField = await $(this.codeField);
-        // collect all responses
         const requests = await browser.getRequests();
-        // use first response
         await expect(requests.length).toBe(1)
         const code = await requests[0].response.body.code
         await codeField.setValue(code)
@@ -87,7 +81,7 @@ module.exports = {
         await browser.keys("\ue004");
         if (linkAndClose) {
             await ($(this.linkButton)).click();
-            await $(this.closeCardModalButton).click(); // close payment window
+            await $(this.closeCardModalButton).click(); 
         }
     },
     writeMessage: async function (message = 'Sample Message') {
