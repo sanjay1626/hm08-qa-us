@@ -44,5 +44,5 @@ This project focuses on end-to-end testing for the "Urban Routes" web applicatio
 ## Troubleshooting
 
 - If you encounter test failures, ensure that your test environment is correctly set up and that the Urban Routes server is accessible.
-- Should you face difficulties in submitting your project, consult the project guidelines for alternative submission options.
+
 
